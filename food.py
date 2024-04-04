@@ -67,7 +67,7 @@ def main():
         st.header("Enter Nutritional Preferences Manually")
         enter_preferences_manually()
 
-    elif page == "Based on User Information":
+    elif page == "Enter your Information":
         st.header("Analyze Nutritional Preferences Based on User Information")
         analyze_based_on_age()
 
