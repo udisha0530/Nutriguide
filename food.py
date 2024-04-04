@@ -29,7 +29,7 @@ df_new['Non-Vegetarian'] = df['Category'].apply(lambda x: 1 if any(category in x
 sodium_std = df['Sodium'].std()
 
 # Set a threshold as mean minus one standard deviation
-low_sodium_threshold = df['Sodium'].mean() - sodium_std
+low_sodium_threshold = df['Sodium'].mean() 
 df_new['Low_Sodium'] = df['Sodium'].apply(lambda x: 1 if x < low_sodium_threshold else 0)
 df_new['Low_Carb'] = (df['Carbs'] <= df['Carbs'].mean()).astype(int)
 df_new['Vitamin_Rich'] = (df['Total_Vitamins'] >= df['Total_Vitamins'].mean()).astype(int)
