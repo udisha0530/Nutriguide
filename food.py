@@ -123,7 +123,7 @@ def enter_preferences_manually():
             # Sort the DataFrame accordingly
             sorted_df = result_df.sort_values(by=column, ascending=(sorting_order == 'ascend'))
             
-            sorted_datasets.append((column, sorting_order, sorted_df[['food items','Calories',column]][:5]))
+            sorted_datasets.append((column, sorting_order, sorted_df[['food items','Calories','Category',column]][:5]))
         
         # Append top matching results to sorted_datasets
     
