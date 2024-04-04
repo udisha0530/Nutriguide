@@ -138,9 +138,7 @@ def enter_preferences_manually():
     
     
     # Display the corresponding rows from the original DataFrame
-    if st.button("Reset"):
-    # Reload the page to reset the selections
-       st.experimental_rerun() 
+    
     
 
 def analyze_based_on_age():
