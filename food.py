@@ -67,8 +67,8 @@ def main():
         st.header("Enter Nutritional Preferences Manually")
         enter_preferences_manually()
 
-    elif page == "Based on Age":
-        st.header("Analyze Nutritional Preferences Based on Age")
+    elif page == "Based on User Information":
+        st.header("Analyze Nutritional Preferences Based on User Information")
         analyze_based_on_age()
 
 def enter_preferences_manually():
@@ -130,7 +130,6 @@ def enter_preferences_manually():
     # Display results
         st.subheader("Top Matching Results")
         for dataset in sorted_datasets:
-              st.write(f"Sorted by: {dataset[0]}, Order: {dataset[1]}")
               st.write(dataset[2])
               st.write("---") 
 
@@ -142,8 +141,21 @@ def enter_preferences_manually():
     
 
 def analyze_based_on_age():
-    s=st.slider("Select your age:", min_value=1, max_value=100, value=30, step=1)
-    age=s
+    # Collect user information
+    st.subheader("User Information")
+    age = st.number_input("Enter your age", min_value=1, max_value=100, value=30, step=1)
+    weight = st.number_input("Enter your weight (kg)", min_value=1.0, max_value=500.0, value=70.0, step=0.1)
+    height = st.number_input("Enter your height (cm)", min_value=50.0, max_value=300.0, value=170.0, step=1.0)
+    gender = st.selectbox("Select your gender", ["Male", "Female"])
+
+    # Logic to analyze nutritional preferences based on user information
+    # This can include specific recommendations based on age, weight, height, and gender
+    if st.button("Analyze"):
+        # Perform analysis based on user information
+        st.write(f"Age: {age} years")
+        st.write(f"Weight: {weight} kg")
+        st.write(f"Height: {height} cm")
+        st.write(f"Gender: {gender}")
    
     # Logic to analyze nutritional preferences based on age
     # This can include specific recommendations based on age groups
