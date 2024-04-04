@@ -105,7 +105,7 @@ def enter_preferences_manually():
         corresponding_columns = [preference_mapping[col] for col in selected_columns]
 
     # Display selected columns along with 'food items' and 'Calories'
-        result_df = original_filtered_df[['food items','Calories'] + corresponding_columns]
+        result_df = original_filtered_df[['food items','Calories','Category] + corresponding_columns]
         sorted_datasets = []
         for nutrient, value in user_input_nutrient.items():
           if value == 1:
