@@ -153,7 +153,7 @@ def analyze_based_on_age():
 
     # Define user profile based on input
     user_profile = define_user_profile(age, weight, height)
-    df_age = pd.read_csv('food_age.csv')
+    df_age = pd.read_csv('food_data_final.csv')
 
 # Perform k-means clustering on the nutritional values
     X = df_age[['Calories', 'Proteins', 'Carbohydrates', 'Fats']]
@@ -229,7 +229,7 @@ def recommend_food(df_age, user_profile,kmeans):
     user_cluster = kmeans.predict(user_features)[0]
     
     # Filter food items belonging to the predicted cluster
-    recommended_food = df_age[df_age['cluster'] == user_cluster]['Food_items']
+    recommended_food = df_age[df_age['cluster'] == user_cluster]['food items']
     
     return recommended_food
 def filter(user_series_dietary,user_series_nutrient,df_new):
