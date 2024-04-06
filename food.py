@@ -156,7 +156,7 @@ def analyze_based_on_age():
     df_age = pd.read_csv('food_data_final.csv')
 
 # Perform k-means clustering on the nutritional values
-    X = df_age[['Calories', 'Proteins', 'Carbohydrates', 'Fats']]
+    X = df_age[['Calories', 'Protein', 'Carbs', 'Total Fat']]
     kmeans = KMeans(n_clusters=5)  # Adjust the number of clusters as needed
     kmeans.fit(X)
     df_age['cluster'] = kmeans.labels_
