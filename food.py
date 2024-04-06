@@ -162,7 +162,7 @@ def analyze_based_on_age():
     df_age['cluster'] = kmeans.labels_
 
     # Perform recommendation based on user profile
-    recommended_food = recommend_food(df_age, user_profile)
+    recommended_food = recommend_food(df_age, user_profile,kmeans)
 
     # Display recommendations
     if st.button("Analyze"):
@@ -214,7 +214,7 @@ def define_user_profile(age, weight, height):
     }
 
     return user_profile
-def recommend_food(df_age, user_profile):
+def recommend_food(df_age, user_profile,kmeans):
     # Find cluster that matches user's nutritional needs
     user_profile_df = pd.DataFrame([user_profile])
     
