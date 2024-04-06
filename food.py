@@ -216,7 +216,7 @@ def recommend_food(df, user_profile):
     user_cluster = kmeans.predict([list(user_profile.values())])[0]
     
     # Filter food items belonging to the same cluster
-    recommended_food = df_age[df_age['cluster'] == user_cluster]['food items']
+    recommended_food = df_age[df_age['cluster'] == user_cluster]['Food_items']
     
     return recommended_food    
 def filter(user_series_dietary,user_series_nutrient,df_new):
