@@ -216,8 +216,16 @@ def define_user_profile(age, weight, height):
     return user_profile
 def recommend_food(df_age, user_profile):
     # Find cluster that matches user's nutritional needs
+    user_profile_df = pd.DataFrame([user_profile])
     
-    user_cluster = kmeans.predict([list(user_profile.values())])[0]
+    # Select relevant features for clustering (assuming they match the features used for training)
+    features = ['Calories', 'Proteins', 'Carbohydrates', 'Fats']
+    user_features = user_profile_df[features]
+    
+    # Predict the cluster for the user profile
+    user_cluster = kmeans.predict(user_features)
+    
+    #user_cluster = kmeans.predict([list(user_profile.values())])[0]
     
     # Filter food items belonging to the same cluster
     recommended_food = df_age[df_age['cluster'] == user_cluster]['Food_items']
