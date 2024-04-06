@@ -208,9 +208,9 @@ def define_user_profile(age, weight, height):
     # Define user profile as a dictionary
     user_profile = {
         'Calories': tdee * (calories_percentage / 100),
-        'Protein': tdee * (protein_percentage / 100) / 4,  # 1 gram of protein = 4 calories
-        'Carbs': tdee * (carbs_percentage / 100) / 4,  # 1 gram of carbs = 4 calories
-        'Fat': tdee * (fat_percentage / 100) / 9  # 1 gram of fat = 9 calories
+        'Proteins': tdee * (protein_percentage / 100) / 4,  # 1 gram of protein = 4 calories
+        'Carbohydrates': tdee * (carbs_percentage / 100) / 4,  # 1 gram of carbs = 4 calories
+        'Fats': tdee * (fat_percentage / 100) / 9  # 1 gram of fat = 9 calories
     }
 
     return user_profile
