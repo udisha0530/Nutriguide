@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from sklearn.cluster import KMeans
 
 
 # Read the CSV file
@@ -145,19 +146,28 @@ def analyze_based_on_age():
     # Collect user information
     st.subheader("User Information")
     # Collect user information
+    
     age = st.number_input("Enter your age", min_value=1, max_value=120, value=30, step=1)
     weight = st.number_input("Enter your weight (kg)", min_value=1.0, max_value=500.0, value=70.0, step=0.1)
     height = st.number_input("Enter your height (cm)", min_value=50.0, max_value=300.0, value=170.0, step=1.0)
 
     # Define user profile based on input
     user_profile = define_user_profile(age, weight, height)
+    df_age = pd.read_csv('food_age.csv')
+
+# Perform k-means clustering on the nutritional values
+    X = df_age[['Calories', 'Proteins', 'Carbohydrates', 'Fats']]
+    kmeans = KMeans(n_clusters=5)  # Adjust the number of clusters as needed
+    kmeans.fit(X)
+    df_age['cluster'] = kmeans.labels_
 
     # Perform recommendation based on user profile
-    recommended_food = recommend_food(df, user_profile)
+    recommended_food = recommend_food(df_age, user_profile)
 
     # Display recommendations
-    st.subheader("Recommended Food Items")
-    st.write(recommended_food)
+    if st.button("Analyze"):
+       st.subheader("Recommended Food Items")
+       st.write(recommended_food)
    
     # Logic to analyze nutritional preferences based on age
     # This can include specific recommendations based on age groups
@@ -204,15 +214,9 @@ def define_user_profile(age, weight, height):
     }
 
     return user_profile
-def recommend_food(df, user_profile):
+def recommend_food(df_age, user_profile):
     # Find cluster that matches user's nutritional needs
-    df_age = pd.read_csv('food_age.csv')
-
-# Perform k-means clustering on the nutritional values
-    X = df_age[['Calories', 'Proteins', 'Carbohydrates', 'Fats']]
-    kmeans = KMeans(n_clusters=5)  # Adjust the number of clusters as needed
-    kmeans.fit(X)
-    df_age['cluster'] = kmeans.labels_
+    
     user_cluster = kmeans.predict([list(user_profile.values())])[0]
     
     # Filter food items belonging to the same cluster
