@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+
 # Read the CSV file
 df = pd.read_csv('food_data_final.csv')
 vitamin_columns = ['Vitamin C', 'Vitamin A', 'Vitamin E', 'Vitamin K']
@@ -143,22 +144,81 @@ def enter_preferences_manually():
 def analyze_based_on_age():
     # Collect user information
     st.subheader("User Information")
-    age = st.number_input("Enter your age", min_value=1, max_value=100, value=30, step=1)
+    # Collect user information
+    age = st.number_input("Enter your age", min_value=1, max_value=120, value=30, step=1)
     weight = st.number_input("Enter your weight (kg)", min_value=1.0, max_value=500.0, value=70.0, step=0.1)
     height = st.number_input("Enter your height (cm)", min_value=50.0, max_value=300.0, value=170.0, step=1.0)
-    gender = st.selectbox("Select your gender", ["Male", "Female"])
 
-    # Logic to analyze nutritional preferences based on user information
-    # This can include specific recommendations based on age, weight, height, and gender
-    if st.button("Analyze"):
-        # Perform analysis based on user information
-        st.write(f"Age: {age} years")
-        st.write(f"Weight: {weight} kg")
-        st.write(f"Height: {height} cm")
-        st.write(f"Gender: {gender}")
+    # Define user profile based on input
+    user_profile = define_user_profile(age, weight, height)
+
+    # Perform recommendation based on user profile
+    recommended_food = recommend_food(df, user_profile)
+
+    # Display recommendations
+    st.subheader("Recommended Food Items")
+    st.write(recommended_food)
    
     # Logic to analyze nutritional preferences based on age
     # This can include specific recommendations based on age groups
+def define_user_profile(age, weight, height):
+    # Calculate Basal Metabolic Rate (BMR) using Mifflin-St Jeor equation
+    # BMR (kcal/day) = 10 * weight (kg) + 6.25 * height (cm) - 5 * age (years) + S
+    # S = +5 for males, -161 for females
+    gender = st.selectbox("Select your gender", ["Male", "Female"])
+    if gender == "Male":
+        s = 5
+    else:
+        s = -161
+    bmr = 10 * weight + 6.25 * height - 5 * age + s
+
+    # Determine Total Daily Energy Expenditure (TDEE) based on activity level
+    activity_level = st.selectbox("Select your activity level", ["Sedentary", "Lightly active", "Moderately active", "Very active", "Extremely active"])
+    activity_factors = {"Sedentary": 1.2, "Lightly active": 1.375, "Moderately active": 1.55, "Very active": 1.725, "Extremely active": 1.9}
+    tdee = bmr * activity_factors[activity_level]
+
+    # Define macronutrient distribution based on user's goals
+    goal = st.selectbox("Select your goal", ["Weight loss", "Maintenance", "Muscle gain"])
+    if goal == "Weight loss":
+        calories_percentage = 40
+        protein_percentage = 30
+        carbs_percentage = 30
+        fat_percentage = 20
+    elif goal == "Maintenance":
+        calories_percentage = 50
+        protein_percentage = 25
+        carbs_percentage = 25
+        fat_percentage = 25
+    elif goal == "Muscle gain":
+        calories_percentage = 45
+        protein_percentage = 35
+        carbs_percentage = 35
+        fat_percentage = 20
+
+    # Define user profile as a dictionary
+    user_profile = {
+        'Calories': tdee * (calories_percentage / 100),
+        'Protein': tdee * (protein_percentage / 100) / 4,  # 1 gram of protein = 4 calories
+        'Carbs': tdee * (carbs_percentage / 100) / 4,  # 1 gram of carbs = 4 calories
+        'Fat': tdee * (fat_percentage / 100) / 9  # 1 gram of fat = 9 calories
+    }
+
+    return user_profile
+def recommend_food(df, user_profile):
+    # Find cluster that matches user's nutritional needs
+    df_age = pd.read_csv('food_age.csv')
+
+# Perform k-means clustering on the nutritional values
+    X = df_age[['Calories', 'Proteins', 'Carbohydrates', 'Fats']]
+    kmeans = KMeans(n_clusters=5)  # Adjust the number of clusters as needed
+    kmeans.fit(X)
+    df_age['cluster'] = kmeans.labels_
+    user_cluster = kmeans.predict([list(user_profile.values())])[0]
+    
+    # Filter food items belonging to the same cluster
+    recommended_food = df_age[df_age['cluster'] == user_cluster]['food items']
+    
+    return recommended_food    
 def filter(user_series_dietary,user_series_nutrient,df_new):
      filtered_df = df_new[(df_new[list(user_series_dietary[user_series_dietary == 1].index)] == 1).all(axis=1)]
      filtered_df = filtered_df[(filtered_df[list(user_series_nutrient[user_series_nutrient == 1].index)] == 1).all(axis=1)]
