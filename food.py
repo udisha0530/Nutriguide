@@ -157,7 +157,7 @@ def analyze_based_on_age():
 
 # Perform k-means clustering on the nutritional values
     X = df_age[['Calories', 'Protein', 'Carbs', 'Total Fat']]
-    kmeans = KMeans(n_clusters=3)  # Adjust the number of clusters as needed
+    kmeans = KMeans(n_clusters=6)  # Adjust the number of clusters as needed
     kmeans.fit(X)
     df_age['cluster'] = kmeans.labels_
 
@@ -190,20 +190,21 @@ def define_user_profile(age, weight, height):
     # Define macronutrient distribution based on user's goals
     goal = st.selectbox("Select your goal", ["Weight loss", "Maintenance", "Muscle gain"])
     if goal == "Weight loss":
-        calories_percentage = 40
-        protein_percentage = 30
-        carbs_percentage = 30
-        fat_percentage = 20
+       calories_percentage = 35
+       protein_percentage = 30
+       carbs_percentage = 35
+       fat_percentage = 30
     elif goal == "Maintenance":
-        calories_percentage = 50
-        protein_percentage = 25
-        carbs_percentage = 25
-        fat_percentage = 25
+       calories_percentage = 55
+       protein_percentage = 15
+       carbs_percentage = 15
+       fat_percentage = 30
     elif goal == "Muscle gain":
-        calories_percentage = 45
-        protein_percentage = 35
-        carbs_percentage = 35
-        fat_percentage = 20
+       calories_percentage = 40
+       protein_percentage = 30
+       carbs_percentage = 30
+       fat_percentage = 30
+
 
     # Define user profile as a dictionary
     user_profile = {
