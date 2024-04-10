@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.cluster import KMeans
-
+st.set_page_config(page_title="Food Recommendation App", page_icon=":fork_and_knife:", layout="wide", initial_sidebar_state="expanded")
 
 # Read the CSV file
 df = pd.read_csv('food_data_final.csv')
