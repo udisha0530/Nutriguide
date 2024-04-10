@@ -132,7 +132,7 @@ def enter_preferences_manually():
     # Display results
         st.subheader("Top Matching Results")
         for dataset in sorted_datasets:
-              st.write(dataset[2].to_string(index=False))
+              st.table(dataset[2])
               st.write("---") 
 
     # Filter DataFrame based on nutrient preferences
