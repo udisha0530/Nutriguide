@@ -2,7 +2,39 @@ import streamlit as st
 import pandas as pd
 from sklearn.cluster import KMeans
 st.set_page_config(page_title="Food Recommendation App", page_icon=":fork_and_knife:", layout="wide", initial_sidebar_state="expanded")
-
+st.markdown(
+    """
+    <style>
+        /* Custom CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f6;
+        }
+        .sidebar .sidebar-content {
+            background-color: #f0f2f6;
+        }
+        .stButton>button {
+            background-color: #6c757d;
+            color: #fff;
+            border-color: #6c757d;
+        }
+        .stTextInput>div>div>input {
+            border-color: #6c757d;
+            color: #6c757d;
+        }
+        .stTextInput>div>div>input:focus {
+            box-shadow: 0 0 0 0.2rem rgba(108,117,125,.25);
+        }
+        .stSelectbox>div>div>div {
+            color: #6c757d;
+        }
+        .stSelectbox>div>div>div:focus {
+            box-shadow: 0 0 0 0.2rem rgba(108,117,125,.25);
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # Read the CSV file
 df = pd.read_csv('food_data_final.csv')
 vitamin_columns = ['Vitamin C', 'Vitamin A', 'Vitamin E', 'Vitamin K']
