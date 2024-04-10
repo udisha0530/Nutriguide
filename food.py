@@ -132,6 +132,7 @@ def enter_preferences_manually():
     # Display results
         st.subheader("Top Matching Results")
         for dataset in sorted_datasets:
+              dataset[2].reset_index(drop=True, inplace=True)
               st.table(dataset[2])
               st.write("---") 
 
