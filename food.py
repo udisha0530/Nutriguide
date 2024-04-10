@@ -132,7 +132,7 @@ def enter_preferences_manually():
     # Display results
         st.subheader("Top Matching Results")
         for dataset in sorted_datasets:
-              st.write(dataset[2])
+              st.write(dataset[2].to_string(index=False))
               st.write("---") 
 
     # Filter DataFrame based on nutrient preferences
@@ -190,20 +190,20 @@ def define_user_profile(age, weight, height):
     # Define macronutrient distribution based on user's goals
     goal = st.selectbox("Select your goal", ["Weight loss", "Maintenance", "Muscle gain"])
     if goal == "Weight loss":
-       calories_percentage = 35
+       calories_percentage = 45
        protein_percentage = 30
-       carbs_percentage = 35
-       fat_percentage = 30
+       carbs_percentage = 45
+       fat_percentage = 20
     elif goal == "Maintenance":
-       calories_percentage = 55
-       protein_percentage = 15
-       carbs_percentage = 15
-       fat_percentage = 30
+       calories_percentage = 50
+       protein_percentage = 25
+       carbs_percentage = 25
+       fat_percentage = 25
     elif goal == "Muscle gain":
-       calories_percentage = 40
-       protein_percentage = 30
-       carbs_percentage = 30
-       fat_percentage = 30
+       calories_percentage = 55
+       protein_percentage = 35
+       carbs_percentage = 25
+       fat_percentage = 20
 
 
     # Define user profile as a dictionary
