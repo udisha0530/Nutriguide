@@ -5,31 +5,27 @@ st.set_page_config(page_title="Food Recommendation App", page_icon=":fork_and_kn
 st.markdown(
     """
     <style>
-        /* Custom CSS styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f6;
-        }
+        /* Add custom CSS styles for the sidebar here */
         .sidebar .sidebar-content {
-            background-color: #f0f2f6;
+            background-color: #f0f2f6; /* Set sidebar background color */
         }
-        .stButton>button {
-            background-color: #6c757d;
-            color: #fff;
-            border-color: #6c757d;
+        .sidebar .sidebar-content .block-container {
+            padding: 1rem; /* Add padding to sidebar content */
         }
-        .stTextInput>div>div>input {
-            border-color: #6c757d;
-            color: #6c757d;
+        .sidebar .sidebar-content .block-container .block {
+            margin-bottom: 1rem; /* Add margin between sidebar blocks */
         }
-        .stTextInput>div>div>input:focus {
-            box-shadow: 0 0 0 0.2rem rgba(108,117,125,.25);
+        .sidebar .sidebar-content .block-container .block-header {
+            font-size: 1.2rem; /* Increase font size of sidebar headers */
+            color: #333; /* Set color of sidebar headers */
+            padding: 0.5rem 0; /* Add padding to sidebar headers */
         }
-        .stSelectbox>div>div>div {
-            color: #6c757d;
+        .sidebar .sidebar-content .block-container .block-content {
+            padding: 0.5rem; /* Add padding to sidebar content */
         }
-        .stSelectbox>div>div>div:focus {
-            box-shadow: 0 0 0 0.2rem rgba(108,117,125,.25);
+        .sidebar .sidebar-content .block-container .block-content .widget-label {
+            font-size: 1rem; /* Adjust font size of sidebar labels */
+            color: #555; /* Set color of sidebar labels */
         }
     </style>
     """,
