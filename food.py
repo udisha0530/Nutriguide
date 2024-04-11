@@ -206,7 +206,10 @@ def analyze_based_on_age():
     # Display recommendations
     if st.button("Analyze"):
        st.subheader("Recommended Food Items")
-       st.write(recommended_food)
+       recommended_food.reset_index(drop=True, inplace=True)
+       st.table(recommended_food)
+       st.write("---") 
+       
    
     # Logic to analyze nutritional preferences based on age
     # This can include specific recommendations based on age groups
