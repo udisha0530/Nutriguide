@@ -91,7 +91,7 @@ sorting_rules = {
 def main():
     st.title('Nutritional Preferences Analyzer')
 
-    page = st.sidebar.radio("Select Method", ["Enter Preferences Manually", "Enter your Information"])
+    page = st.sidebar.radio("Select Method", ["Enter Preferences Manually", "Enter your Information","Give Feedback"])
 
     if page == "Enter Preferences Manually":
         st.header("Enter Nutritional Preferences Manually")
@@ -100,7 +100,17 @@ def main():
     elif page == "Enter your Information":
         st.header("Analyze Nutritional Preferences Based on User Information")
         analyze_based_on_age()
+    elif page=="Give Feedback":
+        collect_feedback()
 
+def collect_feedback():
+    st.subheader("Feedback")
+    feedback = st.text_area("Please provide your feedback here:")
+    if st.button("Submit Feedback"):
+        # Store feedback in a file or database
+        with open("feedback.txt", "a") as f:
+            f.write(feedback + "\n")
+        st.success("Thank you for your feedback!")
 def enter_preferences_manually():
     # Collect user dietary preferences
     st.subheader("Dietary Preferences")
