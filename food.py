@@ -100,7 +100,7 @@ def main():
     elif page == "Enter your Information":
         st.header("Analyze Nutritional Preferences Based on User Information")
         analyze_based_on_age()
-    elif page=="Give Feedback":
+    elif page =="Give Feedback":
         collect_feedback()
 
 def collect_feedback():
